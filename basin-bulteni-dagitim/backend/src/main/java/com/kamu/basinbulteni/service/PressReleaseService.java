@@ -51,13 +51,13 @@ public class PressReleaseService {
             }
         } else if (user.getRole() == Role.ADMIN) {
             if (title != null && !title.isEmpty() && status != null) {
-                pressReleases = pressReleaseRepository.findAllExceptDraftByStatusAndTitle(status, title, pageable);
+                pressReleases = pressReleaseRepository.findAllForAdminByStatusAndTitle(status, title, pageable);
             } else if (title != null && !title.isEmpty()) {
-                pressReleases = pressReleaseRepository.findAllExceptDraftByTitle(title, pageable);
+                pressReleases = pressReleaseRepository.findAllForAdminByTitle(title, pageable);
             } else if (status != null) {
-                pressReleases = pressReleaseRepository.findAllExceptDraftByStatus(status, pageable);
+                pressReleases = pressReleaseRepository.findAllForAdminByStatus(status, pageable);
             } else {
-                pressReleases = pressReleaseRepository.findAllExceptDraft(pageable);
+                pressReleases = pressReleaseRepository.findAllForAdmin(pageable);
             }
         } else {
             if (title != null && !title.isEmpty() && status != null) {

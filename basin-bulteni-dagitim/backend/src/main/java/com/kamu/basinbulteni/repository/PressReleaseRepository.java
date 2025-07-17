@@ -66,6 +66,19 @@ public interface PressReleaseRepository extends JpaRepository<PressRelease, Long
     @Query("SELECT pr FROM PressRelease pr WHERE pr.status = :status AND pr.status <> 'DRAFT' AND pr.title LIKE %:title%")
     Page<PressRelease> findAllExceptDraftByStatusAndTitle(@Param("status") PressReleaseStatus status, @Param("title") String title, Pageable pageable);
 
+    // Admin kullanıcılar için tüm bültenleri (taslak dahil) getiren metodlar
+    @Query("SELECT pr FROM PressRelease pr")
+    Page<PressRelease> findAllForAdmin(Pageable pageable);
+
+    @Query("SELECT pr FROM PressRelease pr WHERE pr.title LIKE %:title%")
+    Page<PressRelease> findAllForAdminByTitle(@Param("title") String title, Pageable pageable);
+
+    @Query("SELECT pr FROM PressRelease pr WHERE pr.status = :status")
+    Page<PressRelease> findAllForAdminByStatus(@Param("status") PressReleaseStatus status, Pageable pageable);
+
+    @Query("SELECT pr FROM PressRelease pr WHERE pr.status = :status AND pr.title LIKE %:title%")
+    Page<PressRelease> findAllForAdminByStatusAndTitle(@Param("status") PressReleaseStatus status, @Param("title") String title, Pageable pageable);
+
     List<PressRelease> findTop5ByOrderByIdDesc();
     List<PressRelease> findTop5ByCreatedByOrderByIdDesc(User createdBy);
 } 
